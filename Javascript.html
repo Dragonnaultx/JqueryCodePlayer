@@ -1,0 +1,140 @@
+<html>
+    <head>
+    <title>Code Player</title>
+    <script type="text/javascript" src="jquery.min.js"></script> 
+
+    <style type="text/css">
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding: 0;
+        margin: 0;
+    }
+    .header {
+        width: 1000px;
+        margin: 0 auto;
+        background-color: beige;
+        height: 80px;
+        border: 1px solid black;
+    }
+    #workspace {
+        margin: 0 auto;
+        width: 1000px;
+        background-color: rgb(247, 233, 233);
+        height: 766px;
+    }
+    #logo {
+        float:left;
+        position: relative;
+        top: 10px;
+        margin: 5px 5px 5px 20px;
+    }
+    #buttons {
+        float:left;
+        position: relative;
+        top:16px;
+        left: 9%;
+    }
+    .buttontoggle {
+        float: left;
+        width: 100px;
+        margin: 10px 2px 10px 0px;
+        background-color: rgb(236, 124, 104);
+        border: 1px solid black;
+        border-radius: 5px;
+        }
+    .buttontoggle p {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
+    .code {
+        width: 327px;
+        height: 375px;
+        margin: 2px;
+        background-color: white;
+        border: 1px solid grey;
+        border-radius: 2px;
+        float: left;
+    }
+    .panel {
+        float: left;
+        width: 992px;
+        height: 375px;
+        margin: 2px;
+        background-color: white;
+        
+    }
+    .code p {
+        border-bottom: 1px solid black;
+        padding-top: 0px;
+        height: 20px;
+        margin: 0 5px 0 5px;
+    }
+    .code textarea {    
+        padding: 5px;
+        height: 355px;
+        width: 100%;   
+    }
+    .active {
+        background-color: rgb(101, 214, 107);
+    }
+    .hidden {
+        display: none !important;
+    }
+    .highlightedButton { 
+                background-color: grey;  
+            }
+    </style>
+    </head>
+    <body>
+    <div id="wrapper">
+        <div class="header">
+            <h1 id="logo">Code Player</h1>
+            <div id="buttons">
+                <div class="buttontoggle active" id="html"><p>HTML</p></div>
+                <div class="buttontoggle active" id="css"><p>CSS</p></div>
+                <div class="buttontoggle active" id="javascript"><p>JAVASCRIPT</p></div>
+                <div class="buttontoggle active" id="code"><p>CODE PLAY</p></div>
+            </div>
+        </div>
+        <div id="workspace">
+            <div id="htmlPanel" class="code"><p>HTML</p><textarea id="text1"><p id="test">Hello World!</p></textarea></div>
+            <div id="cssPanel" class="code"><p>CSS</p><textarea id="text2">p {font-size: 20px;color:red;}</textarea></div>
+            <div id="javascriptPanel" class="code"><p>Javascript</p><textarea id="text3">document.getElementById("test").style.color = "green";document.getElementById("test").innerHTML = "CODE PLAYER RULES";</textarea></div>
+            <iframe id="codePanel" class="panel"></iframe>
+        </div>
+    </div>
+
+        <script type="text/javascript">
+
+        function displayCode() {
+
+            $("iframe").contents().find("html").html("<html><head><style type='text/css'>" + $("#text2").val() + "</style></head><body>" + $("#text1").val() + "</body></html>");
+            document.getElementsByClassName("panel")[0].contentWindow.eval($("#text3").val());
+            }
+
+            $(".buttontoggle").hover(function() {
+                $(this).addClass("highlightedButton");    
+            }, function() {
+                $(this).removeClass("highlightedButton");
+            });
+
+            $(".buttontoggle").click(function(){
+                $(this).toggleClass("active");
+                $(this).removeClass("highlightedButton");
+
+                var panelID = $(this).attr("id") + "Panel";
+                $("#" + panelID).toggleClass("hidden");
+            })
+            
+            displayCode();
+
+            $("textarea").change(function(){
+                displayCode();
+            })
+        
+        </script>
+    </body>
+    
+</html> 
+
